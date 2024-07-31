@@ -7,6 +7,19 @@ lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 lvim.plugins = {
   "mfussenegger/nvim-jdtls",
 }
+
+lvim.format_on_save.enabled = true
+
+local formatters = require "lvim.lsp.null-ls.formatters"
+formatters.setup {
+  { command = "eslint_d", filetypes = { "typescript", "typescriptreact" } },
+}
+
+local linters = require "lvim.lsp.null-ls.linters"
+linters.setup {
+  { command = "eslint_d", filetypes = { "typescript", "typescriptreact" } },
+}
+
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "jdtls" })
 lvim.builtin.treesitter.ensure_installed = {
   "java",
