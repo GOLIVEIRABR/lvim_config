@@ -6,9 +6,18 @@ lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 lvim.plugins = {
   "mfussenegger/nvim-jdtls",
+  "nvim-treesitter/nvim-treesitter-angular",
+  {
+    "windwp/nvim-ts-autotag",
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end,
+  },
 }
 
 lvim.format_on_save.enabled = true
+
+require("lvim.lsp.manager").setup("angularls")
 
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
