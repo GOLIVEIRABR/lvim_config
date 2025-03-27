@@ -13,7 +13,12 @@ lvim.plugins = {
       require("nvim-ts-autotag").setup()
     end,
   },
+  {
+    "folke/tokyonight.nvim",
+  }
 }
+
+lvim.colorscheme = "tokyonight-night"
 
 lvim.format_on_save.enabled = true
 
