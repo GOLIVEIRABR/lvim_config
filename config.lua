@@ -4,6 +4,13 @@
 -- Discord: https://discord.com/invite/Xb9B4Ny
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
+
+-- DEBUG KEYBINDS
+lvim.keys.normal_mode["<F5>"] = "<cmd>lua require'dap'.continue()<CR>"
+lvim.keys.normal_mode["<F10>"] = "<cmd>lua require'dap'.step_over()<CR>"
+lvim.keys.normal_mode["<F11>"] = "<cmd>lua require'dap'.step_into()<CR>"
+lvim.keys.normal_mode["<F12>"] = "<cmd>lua require'dap'.step_out()<CR>"
+
 lvim.plugins = {
   "mfussenegger/nvim-jdtls",
   "nvim-treesitter/nvim-treesitter-angular",
@@ -15,7 +22,7 @@ lvim.plugins = {
   },
   {
     "folke/tokyonight.nvim",
-  }
+  },
 }
 
 lvim.colorscheme = "tokyonight-night"
@@ -23,16 +30,6 @@ lvim.colorscheme = "tokyonight-night"
 lvim.format_on_save.enabled = true
 
 require("lvim.lsp.manager").setup("angularls")
-
-local formatters = require "lvim.lsp.null-ls.formatters"
-formatters.setup {
-  { command = "eslint_d", filetypes = { "typescript", "typescriptreact" } },
-}
-
-local linters = require "lvim.lsp.null-ls.linters"
-linters.setup {
-  { command = "eslint_d", filetypes = { "typescript", "typescriptreact" } },
-}
 
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "jdtls" })
 lvim.builtin.treesitter.ensure_installed = {
