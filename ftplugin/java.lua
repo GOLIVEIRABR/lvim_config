@@ -55,7 +55,7 @@ local config = {
     "-data",
     workspace_dir,
   },
-  root_dir = require("jdtls.setup").find_root { ".git", "mvnw", "gradlew"  },
+  root_dir = require("jdtls.setup").find_root { ".git", "mvnw", "gradlew" },
   capabilities = capabilities,
 
   settings = {
@@ -115,8 +115,8 @@ local config = {
 
 config["common_on_attach"] = function(client, bufnr)
   local _, _ = pcall(vim.lsp.codelens.refresh)
-	require("jdtls").setup_dap({ hotcodereplace = "auto" })
-	require("lvim.lsp").on_attach(client, bufnr)
+  require("jdtls").setup_dap({ hotcodereplace = "auto" })
+  require("lvim.lsp").on_attach(client, bufnr)
   local status_ok, jdtls_dap = pcall(require, "jdtls.dap")
   if status_ok then
     jdtls_dap.setup_dap_main_class_configs()
@@ -130,32 +130,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   end,
 })
 
-local formatters = require "lvim.lsp.null-ls.formatters"
-formatters.setup {
-  { command = "google_java_format", filetypes = { "java" } },
-}
-
 require("jdtls").start_or_attach(config)
-
-local dap = require("dap")
-
-dap.adapters.java = function(callback, config)
-  callback({
-    type = 'server',
-    host = '0.0.0.0',  -- ou o IP da máquina remota
-    port = '5005'
-  })
-end
-
-dap.configurations.java = {
-  {
-    type = "java",
-    request = "attach",
-    name = "Debug (Remote)",
-    hostName = "0.0.0.0",  -- ou o IP da máquina remota
-    port = 5005,
-  },
-}
 
 local status_ok, which_key = pcall(require, "which-key")
 if not status_ok then
